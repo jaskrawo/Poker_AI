@@ -24,16 +24,10 @@ spark = SparkSession.builder \
     .getOrCreate()
 
 
-
-"""rddFromFile = spark.sparkContext.wholeTextFiles("pluribus/*/*.phh")
+rddFromFile = spark.sparkContext.wholeTextFiles("pluribus/*/*.phh")
 rdd_mapped = rddFromFile.map(lambda x: map_one_file(x))
 
 
 for file_name, content_json in rdd_mapped.collect():
-    with open(f"test_dir_2/" + file_name, "w") as outfile:
-        outfile.write(content_json)"""
-
-
-df_json = spark.read.json("test_dir_2/30*.json")
-df_json.printSchema()
-df_json.show()
+    with open(f"raw_json_files/" + file_name, "w") as outfile:
+        outfile.write(content_json)
