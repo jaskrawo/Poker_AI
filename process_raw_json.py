@@ -47,18 +47,32 @@ def clean_one_file(file_content):
                    content['starting_stacks'][position]) / BIG_BLIND
 
         player_json = {
-        "num_players": len(content['players']),
-        "player_id": player,
-        "position": position,
-        "hole_card_1_rank": rank1,
-        "hole_card_2_rank": rank2,
-        "is_pair": is_pair,
-        "is_suited": is_suited,
-        "high_card": high_card,
-        "card_gap": card_gap,
-        "net_gain_bb": net_gain_bb
+            "num_players": len(content['players']),
+            "player_id": player,
+            "position": position,
+            "hole_card_1_rank": rank1,
+            "hole_card_2_rank": rank2,
+            "is_pair": is_pair,
+            "is_suited": is_suited,
+            "high_card": high_card,
+            "card_gap": card_gap,
+            "net_gain_bb": net_gain_bb
         }
-
+        """
+        for example:
+        {
+            "num_players": 6,
+            "player_id": "Bill", 
+            "position": 4, 
+            "hole_card_1_rank": 9, 
+            "hole_card_2_rank": 8,
+            "is_pair": false,
+            "is_suited": true,
+            "high_card": 9,
+            "card_gap": 1,
+            "net_gain_bb": 22.5
+        }
+        """
         output.append((player + '_' + file, player_json))
     return output
 
