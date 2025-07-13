@@ -17,6 +17,10 @@ def map_one_file(file_content):
     content_json = toml_to_json(content)
     return (file_name, content_json)
 
+def save_file(file_content):
+    file_name, content = file_content
+    with open(f"raw_json_files/" + file_name, "w") as outfile:
+        outfile.write(content)
 
 spark = SparkSession.builder \
     .appName("PokerHandParser") \
@@ -25,9 +29,6 @@ spark = SparkSession.builder \
 
 
 rddFromFile = spark.sparkContext.wholeTextFiles("pluribus/*/*.phh")
-rdd_mapped = rddFromFile.map(lambda x: map_one_file(x))
-
-
-for file_name, content_json in rdd_mapped.collect():
-    with open(f"raw_json_files/" + file_name, "w") as outfile:
-        outfile.write(content_json)
+rdd_mapped = rddFromFile.map(map_one_file)
+rdd_save = rdd_mapped.map(save_file)
+rdd_save.collect()
